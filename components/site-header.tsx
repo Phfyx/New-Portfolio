@@ -113,9 +113,6 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
-
-      {/* Persistent Audio */}
-      <audio ref={audioRef} src="/music/theme.mp3" loop preload="auto" />
     </header>
   );
 }

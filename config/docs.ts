@@ -20,7 +20,7 @@ export const docsConfig = {
           items: [],
         },
         {
-          title: 'Projects',
+          title: 'Projets',
           href: '/projects',
           items: [],
         },
@@ -35,8 +35,8 @@ export const docsConfig = {
           items: [],
         },
         {
-          title: 'Education',
-          href: '/education',
+          title: 'Formation',
+          href: '/formation',
           items: [],
         },
         {
