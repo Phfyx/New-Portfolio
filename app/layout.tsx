@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/site-header";
+import { SideNav } from "@/components/side-nav";
+import {SiteFooter} from "@/components/site-footer";
+import { docsConfig } from "@/config/docs";
 import Pager from "@/components/pager";
 import "./globals.css";
 
@@ -36,8 +39,22 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SiteHeader/>
-            {children}
+            <SiteHeader />
+            <main className="flex flex-col flex-1">
+              <div className="container-wrapper">
+                <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+                  <aside className="border-grid fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 border-r md:sticky md:block">
+                    <div className="h-full py-6 pr-4 overflow-auto no-scrollbar lg:py-8">
+                      <SideNav config={docsConfig} />
+                    </div>
+                  </aside>
+                  <div className="flex flex-col flex-1 py-6 pr-4 lg:py-8">
+                    {children}
+                  </div>
+                </div>
+              </div>
+            </main>
+            <SiteFooter />
           </ThemeProvider>
         </body>
       </html>
