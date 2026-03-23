@@ -42,7 +42,7 @@ const AboutMePage = () => {
         prevHref="/"
         nextHref="/projects"
         prevTitle="Introduction"
-        nextTitle="Projects"
+        nextTitle="Projets"
       />
     </>
   );

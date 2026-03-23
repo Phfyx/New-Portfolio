@@ -15,7 +15,7 @@ export const docsConfig = {
           items: [],
         },
         {
-          title: 'About Me',
+          title: 'A propos de moi',
           href: '/about',
           items: [],
         },
@@ -25,17 +25,17 @@ export const docsConfig = {
           items: [],
         },
         {
-          title: 'Skills & Tools',
+          title: 'Outils et compétences',
           href: '/skills-tools',
           items: [],
         },
         {
-          title: 'Experience',
+          title: 'Expérience',
           href: '/experience',
           items: [],
         },
         {
-          title: 'Education',
+          title: 'Formation',
           href: '/education',
           items: [],
         },

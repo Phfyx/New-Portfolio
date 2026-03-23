@@ -46,8 +46,8 @@ const ProjectsPage = () => {
       <Pager
         prevHref="/about"
         nextHref="/skills-tools"
-        prevTitle="About"
-        nextTitle="Skills & Tools"
+        prevTitle="A propos de moi"
+        nextTitle="Outils et compétences"
       />
     </>
   );

@@ -37,8 +37,8 @@ const ExperiencePage = () => {
       <Pager
         prevHref="/skills-tools"
         nextHref="/education"
-        prevTitle="Skills & Tools"
-        nextTitle="Education"
+        prevTitle="Outils et compétences"
+        nextTitle="Formation"
       />
     </>
   );

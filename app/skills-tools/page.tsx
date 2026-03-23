@@ -52,8 +52,8 @@ const SkillsToolsPage = () => {
       <Pager
         prevHref="/projects"
         nextHref="/experience"
-        prevTitle="Projects"
-        nextTitle="Experience"
+        prevTitle="Projets"
+        nextTitle="Expérience"
       />
     </>
   );
