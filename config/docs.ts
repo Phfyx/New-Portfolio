@@ -35,8 +35,8 @@ export const docsConfig = {
           items: [],
         },
         {
-          title: 'Formation',
-          href: '/formation',
+          title: 'Education',
+          href: '/education',
           items: [],
         },
         {
