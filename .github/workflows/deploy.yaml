@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           use_insecure_cipher: false
           script: |
-            cd ~/New-Portfolio
+            cd ~/portfolio
 
             # Pull les dernières modifications
             git pull origin main
