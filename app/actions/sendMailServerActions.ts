@@ -1,6 +1,6 @@
 'use server';
 
-import nodemailer from 'nodemailer';
+const nodemailer = require("nodemailer");
 
 async function sendEmail(fullname: string, email: string, message: string) {
   try {
