@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           use_insecure_cipher: false
           script: |
-            cd ~/portfolio
+            cd ~/New-Portfolio
 
             # Pull les dernières modifications
             git pull origin main
