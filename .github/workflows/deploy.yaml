@@ -4,32 +4,11 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout du code
-        uses: actions/checkout@v4
-
-      - name: Login sur Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build et push de l'image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/portfolio:latest
-
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-push
 
     steps:
       - name: Déploiement sur EC2
@@ -38,22 +17,32 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          use_insecure_cipher: false
           script: |
-            cat > ~/.env << EOF
+            cd ~/portfolio
+
+            # Pull les dernières modifications
+            git pull origin main
+
+            # Recrée le .env avec les secrets GitHub
+            cat > .env << EOF
             NODEMAILER_USER=${{ secrets.NODEMAILER_USER }}
             NODEMAILER_PASS=${{ secrets.NODEMAILER_PASS }}
             EOF
 
+            # Stop et supprime l'ancien conteneur
             docker stop portfolio || true
             docker rm portfolio || true
 
-            docker pull ${{ secrets.DOCKER_USERNAME }}/portfolio:latest
+            # Rebuild l'image
+            docker build -t portfolio .
 
+            # Relance le conteneur
             docker run -d \
               --name portfolio \
-              --env-file ~/.env \
+              --env-file .env \
               -p 80:3000 \
               --restart unless-stopped \
-              ${{ secrets.DOCKER_USERNAME }}/portfolio:latest
+              portfolio
 
-            echo "✅ Déploiement terminé"
+            echo "✅ Déploiement terminé avec succès"
