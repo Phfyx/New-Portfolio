@@ -71,16 +71,6 @@ export function SiteHeader() {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-1">
-              {/* Music Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-9 w-9 rounded-full transition-all hover:scale-105 hover:bg-muted"
-                onClick={toggleMusic}
-                title={playing ? "Pause Music" : "Play Music"}
-              >
-              </Button>
-
               {/* Theme Toggle */}
               <Button
                 variant="ghost"

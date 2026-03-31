@@ -49,7 +49,7 @@ export async function sendMessageServerAction(
   if (fullname?.length <= 2) {
     return {
       fullnameError:
-        'Wow, your name seems to be in stealth mode! 😄 How about unleashing the full version this time?',
+        'Wow, votre nom est en mode invisible ! 😄 Pourquoi pas mettre la version compléte ?',
     };
   }
 
@@ -64,7 +64,7 @@ export async function sendMessageServerAction(
   // validate message
   if (message?.length <= 10) {
     return {
-      messageError: 'That’s a bit brief! 😅 Let it flow—share the whole story!',
+      messageError: 'Ce message semble un peu court non ? Allez racontez moi tout !',
     };
   }
 

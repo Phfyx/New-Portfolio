@@ -60,16 +60,16 @@ export function CommandMenu({ ...props }: DialogProps) {
         onClick={() => setOpen(true)}
         {...props}
       >
-        <span className="hidden lg:inline-flex">Search sections...</span>
-        <span className="inline-flex lg:hidden">Search...</span>
+        <span className="hidden lg:inline-flex">Rechercher une section...</span>
+        <span className="inline-flex lg:hidden">Recherche...</span>
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput placeholder="Rechercher une section..." />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>Pas de résultats.</CommandEmpty>
           <CommandGroup heading="Links">
             {docsConfig.mainNav
               .filter((navitem: any) => !navitem.external)

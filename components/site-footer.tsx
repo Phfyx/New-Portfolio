@@ -17,6 +17,12 @@ export async function SiteFooter() {
               <span className="font-medium text-foreground">shadcn/ui</span> and{" "}
               <span className="font-medium text-foreground">Tailwind CSS</span>
             </span>
+            <span className="hidden sm:inline"> · </span>
+            <span className="block sm:inline">
+              Deployed with{" "}
+              <span className="font-medium text-foreground">AWS</span> and {" "}
+              <span className="font-medium text-foreground">Docker</span>
+            </span>
           </div>
           <div className="text-xs text-center sm:text-sm text-muted-foreground">
             Developed by{" "}
