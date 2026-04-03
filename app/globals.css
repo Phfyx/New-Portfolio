@@ -121,6 +121,10 @@
 }
 
 @layer base {
+  html {
+    font-size: 18px; /* 👈 Augmente ici — défaut navigateur est 16px */
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
