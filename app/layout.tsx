@@ -1,23 +1,19 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import { SiteHeader } from "@/components/site-header";
-import { SideNav } from "@/components/side-nav";
-import {SiteFooter} from "@/components/site-footer";
-import { docsConfig } from "@/config/docs";
+import { ThemeProvider } from '@/components/theme-provider';
 import { META_THEME_COLORS, siteConfig } from '@/config/site';
-import Pager from "@/components/pager";
-import "./globals.css";
+import { LenisProvider } from '@/components/providers/lenis-provider';
+import 'lenis/dist/lenis.css';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { fontSans, fontMono } from '@/lib/fonts';
+import { Toaster } from '@/components/ui/sonner';
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Metadata, Viewport } from 'next';
+import './globals.css';
+import { cn } from '@/lib/utils';
+import { SiteHeader } from '@/components/site-header';
+import { SideNav } from '@/components/side-nav';
+import { SiteFooter } from '@/components/site-footer';
+import { docsConfig } from '@/config/docs';
+
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -27,13 +23,13 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'Benomar Mohamed',
-      url: ''
+      url: '',
     },
   ],
   creator: 'Benomar Mohamed',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'fr_FR',
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
@@ -52,39 +48,74 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export const viewport: Viewport = {
+  themeColor: META_THEME_COLORS.light,
+};
+
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body>
+      <html lang="fr" suppressHydrationWarning>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              try {
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
+                }
+              } catch (_) {}
+            `,
+            }}
+          />
+        </head>
+        <body
+          className={cn(
+            'min-h-svh bg-background font-sans antialiased',
+            fontSans.variable,
+            fontMono.variable
+          )}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
+            enableColorScheme
           >
-            <SiteHeader />
-            <main className="flex flex-col flex-1">
-              <div className="container-wrapper">
-                <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-                  <aside className="border-grid fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 border-r md:sticky md:block">
-                    <div className="h-full py-6 pr-4 overflow-auto no-scrollbar lg:py-8">
-                      <SideNav config={docsConfig} />
-                    </div>
-                  </aside>
-                  <div className="flex flex-col flex-1 py-6 pr-4 lg:py-8">
-                    {children}
+            <LenisProvider>
+              <div vaul-drawer-wrapper="">
+                <div className="relative flex flex-col min-h-svh bg-background">
+                  <div
+                    data-wrapper=""
+                    className="flex flex-col flex-1 border-grid"
+                  >
+                    <SiteHeader />
+                    <main className="flex flex-col flex-1">
+                      <div className="container-wrapper">
+                        <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+                          <aside className="border-grid fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 border-r md:sticky md:block">
+                            <div className="h-full py-6 pr-4 overflow-auto no-scrollbar lg:py-8">
+                              <SideNav config={docsConfig} />
+                            </div>
+                          </aside>
+                          <div className="flex flex-col flex-1 py-6 px-4 lg:py-8 min-w-0">
+                            {children}
+                          </div>
+                        </div>
+                      </div>
+                    </main>
+                    <SiteFooter />
                   </div>
                 </div>
               </div>
-            </main>
-            <SiteFooter />
+            </LenisProvider>
           </ThemeProvider>
+          <Toaster richColors position="top-center" />
         </body>
       </html>
     </>

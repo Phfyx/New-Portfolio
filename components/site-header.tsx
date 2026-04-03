@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 
+import { siteConfig } from "@/config/site";
 import { Button } from "./ui/button";
-import { ModeToggle } from "./mode-toggle";
+import { ModeSwitcher } from "./mode-switcher";
 import { MainNav } from "./main-nav";
-// import { MobileNav } from "./mobile-nav";
+import { MobileNav } from "./mobile-nav";
 import { CommandMenu } from "./command-menu";
 import { Icons } from "./icons";
-import { siteConfig } from "@/config/site";
 
 export function SiteHeader() {
   const [playing, setPlaying] = useState(false);
@@ -25,19 +25,10 @@ export function SiteHeader() {
     return () => clearInterval(timer);
   }, []);
 
-  const toggleMusic = () => {
-    if (!audioRef.current) return;
-    if (playing) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setPlaying(!playing);
-  };
 
   // Format time as HH:MM:SS
-  const formattedTime = time.toLocaleTimeString('en-FR', {
-    timeZone: 'Europe/Paris',
+  const formattedTime = time.toLocaleTimeString('en-IN', {
+    timeZone: 'Asia/Kolkata',
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
@@ -50,6 +41,9 @@ export function SiteHeader() {
         <div className="container flex h-13 items-center">
           {/* Logo/Name - Left */}
           <MainNav />
+
+          {/* Mobile Nav */}
+          <MobileNav />
 
           {/* Desktop Nav - Right */}
           <div className="ml-auto flex items-center gap-2 md:gap-3">
@@ -71,6 +65,7 @@ export function SiteHeader() {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-1">
+
               {/* Theme Toggle */}
               <Button
                 variant="ghost"
@@ -79,7 +74,7 @@ export function SiteHeader() {
                 asChild
               >
                 <div>
-                  <ModeToggle/>
+                  <ModeSwitcher className="h-[18px] w-[18px]" />
                 </div>
               </Button>
 
@@ -103,6 +98,9 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
+
+      {/* Persistent Audio */}
+      <audio ref={audioRef} src="/music/theme.mp3" loop preload="auto" />
     </header>
   );
 }
