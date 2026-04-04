@@ -47,7 +47,7 @@ const ProjectsPage = () => {
         prevHref="/about"
         nextHref="/skills-tools"
         prevTitle="A propos de moi"
-        nextTitle="Outils et compétences"
+        nextTitle="Compétences"
       />
     </>
   );
