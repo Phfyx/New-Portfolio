@@ -39,8 +39,12 @@ jobs:
           command_timeout: 5m
           script: |
             cat > ~/.env << EOF
+            NODEMAILER_HOST=${{ secrets.NODEMAILER_HOST }}
+            NODEMAILER_PORT=${{ secrets.NODEMAILER_PORT }}
             NODEMAILER_USER=${{ secrets.NODEMAILER_USER }}
             NODEMAILER_PASS=${{ secrets.NODEMAILER_PASS }}
+            USER_MAILER=${{ secrets.USER_MAILER }}
+            USER_TO=${{ secrets.USER_TO }}
             EOF
             docker stop portfolio || true
             docker rm portfolio || true

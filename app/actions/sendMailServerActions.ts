@@ -1,5 +1,4 @@
 'use server';
-
 const nodemailer = require("nodemailer");
 
 async function sendEmail(fullname: string, email: string, message: string) {
@@ -7,6 +6,7 @@ async function sendEmail(fullname: string, email: string, message: string) {
     const transporter = nodemailer.createTransport({
       host: process.env.NODEMAILER_HOST,
       port: parseInt(process.env.NODEMAILER_PORT!),
+      secure: true,
       auth: {
         user: process.env.NODEMAILER_USER,
         pass: process.env.NODEMAILER_PASS,
@@ -16,22 +16,22 @@ async function sendEmail(fullname: string, email: string, message: string) {
     const mailOptions = {
       from: process.env.USER_MAILER,
       to: process.env.USER_TO,
-      subject: `${fullname} sent you a message`,
+      subject: `${fullname} vous a envoyé un message`,
       html: `
-      <h1>Message from ${fullname}</h1>
-      <p>Email: ${email}</p>
-      <p>${message}</p>
+        <h1>Message de ${fullname}</h1>
+        <p><strong>Email :</strong> ${email}</p>
+        <p><strong>Message :</strong></p>
+        <p>${message}</p>
       `,
     };
 
     await transporter.sendMail(mailOptions);
     return {
-      success: "Message sent successfully, I'll get back to you soon. 🤖",
+      success: "Message envoyé avec succès, je vous répondrai dans les plus brefs délais. 🙂",
     };
   } catch (error: any) {
     return {
-      error:
-        'There seems a problem with the email service, please try again later. 🤖',
+      error: "Un problème est survenu avec le service d'envoi, veuillez réessayer plus tard.",
     };
   }
 }
@@ -40,49 +40,47 @@ export async function sendMessageServerAction(
   _previousState: any,
   formData: FormData
 ) {
-  // Validate inputs first
   const fullname = (formData.get('fullname') as string)?.trim();
   const email = (formData.get('email') as string)?.trim();
   const message = (formData.get('message') as string)?.trim();
 
-  // validate fullname
-  if (fullname?.length <= 2) {
+  // Validation du nom
+  if (!fullname || fullname.length <= 2) {
     return {
-      fullnameError:
-        'Wow, votre nom est en mode invisible ! 😄 Pourquoi pas mettre la version compléte ?',
+      fullnameError: 'Votre nom doit contenir au moins 3 caractères.',
     };
   }
 
-  // validate email using regex
-  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+  // Validation de l'email
+  if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
     return {
-      emailError:
-        'Oops! Looks like your email just threw a curveball at my regex skills 😅. Let’s give it another shot—what do you say?',
+      emailError: "L'adresse email saisie ne semble pas valide. Vérifiez le format (ex: nom@domaine.com).",
     };
   }
 
-  // validate message
-  if (message?.length <= 10) {
+  // Validation du message
+  if (!message || message.length <= 10) {
     return {
-      messageError: 'Ce message semble un peu court non ? Allez racontez moi tout !',
+      messageError: 'Votre message est trop court. Dites-moi en un peu plus !',
     };
   }
 
-  // If validation passes, try to send email
+  // Envoi de l'email
   try {
     const response = await sendEmail(fullname, email, message);
-    console.log('Response: ', response);
+
     if (response.success) {
       return {
-        success: "Message sent successfully, I'll get back to you soon. 🤖",
+        success: "Message envoyé avec succès, je vous répondrai dans les plus brefs délais. 🙂",
       };
     }
+
     return {
-      error: 'Something went wrong, please try again later. 🤖',
+      error: "Une erreur est survenue lors de l'envoi, veuillez réessayer plus tard.",
     };
   } catch (error: any) {
     return {
-      error: 'Something went wrong, please try again later. 🤖',
+      error: "Une erreur inattendue s'est produite. Veuillez réessayer plus tard.",
     };
   }
 }
