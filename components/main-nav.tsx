@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 import { Icons } from "./icons";
+import { Logo } from "./logo";
 
 export function MainNav() {
   const pathname = usePathname();
@@ -14,7 +15,7 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center gap-2.5">
-        <Icons.logo className="h-6 w-6" />
+        <Logo  />
         <span className="hidden font-semibold tracking-tight lg:inline-block">
           {siteConfig.name}
         </span>

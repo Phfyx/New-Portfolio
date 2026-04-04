@@ -10,11 +10,10 @@ import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 import { CommandMenu } from "./command-menu";
 import { Icons } from "./icons";
+import { Logo } from "./logo";
 
 export function SiteHeader() {
-  const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(new Date());
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   // Update time every second
   useEffect(() => {
@@ -98,9 +97,6 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
-
-      {/* Persistent Audio */}
-      <audio ref={audioRef} src="/music/theme.mp3" loop preload="auto" />
     </header>
   );
 }
