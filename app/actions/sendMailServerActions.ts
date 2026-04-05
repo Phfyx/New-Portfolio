@@ -61,7 +61,7 @@ export async function sendMessageServerAction(
   // Validation du message
   if (!message || message.length <= 10) {
     return {
-      messageError: 'Votre message est trop court. Dites-moi en un peu plus !',
+      messageError: 'Votre message est trop court. Dites-moi en un peu plus ! (minimun 10 caractéres)',
     };
   }
 

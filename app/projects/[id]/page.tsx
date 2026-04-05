@@ -33,7 +33,7 @@ const ProjectDetails = async ({
           className="text-muted-foreground flex items-center gap-2"
         >
           <ArrowLeftIcon className="w-4 h-4" />
-          Back to projects
+          Retour vers les projets
         </Link>
       </>
     );
@@ -47,7 +47,7 @@ const ProjectDetails = async ({
           className="flex items-center gap-2 mb-4 text-muted-foreground cursor-pointer w-fit"
         >
           <ArrowLeftIcon className="w-4 h-4" />
-          Back to projects
+          Retour vers les projets
         </Link>
       </div>
 
@@ -59,7 +59,7 @@ const ProjectDetails = async ({
 
       <div id="badges" className="my-4">
         <h2 className="text-lg font-semibold">Tech Stack</h2>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 pt-2">
           {project.techStack?.map((tech) => (
             <Badge
               variant="outline"

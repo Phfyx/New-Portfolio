@@ -35,8 +35,8 @@ export function MobileNav() {
     [setMetaColor, metaColor]
   );
 
-  const formattedTime = time.toLocaleTimeString('en-IN', {
-    timeZone: 'Asia/Kolkata',
+  const formattedTime = time.toLocaleTimeString('fr-FR', {
+    timeZone: 'Europe/Paris',
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,

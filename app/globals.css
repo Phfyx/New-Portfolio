@@ -135,9 +135,7 @@
 
 @layer utilities {
   .container-wrapper {
-    @apply mx-auto w-full max-w-[1536px];
     @apply border-x border-border/50;
-    padding-inline: max(0rem, calc((100vw - 1536px) / 2));
   }
 
   .border-grid {
