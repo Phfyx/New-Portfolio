@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
-import { Icons } from "./icons";
 import { Logo } from "./logo";
 
 export function MainNav() {
@@ -47,7 +46,7 @@ export function MainNav() {
           target="_blank"
           className="group flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
         >
-          Resume
+          CV
           <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </Link>
       </nav>
